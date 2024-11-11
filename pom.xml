@@ -3,8 +3,8 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
-    <groupId>com.jseplae.maven</groupId>
+    <url>https://github.com/jseplae/moto-server-maven-plugin</url>
+    <groupId>io.github.jseplae</groupId>
     <artifactId>moto-server-maven-plugin</artifactId>
     <name>${project.groupId}:${project.artifactId}</name>
     <version>0.2.1</version>
