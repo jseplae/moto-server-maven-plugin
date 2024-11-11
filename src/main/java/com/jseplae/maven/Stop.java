@@ -15,7 +15,6 @@ import org.apache.maven.plugins.annotations.Parameter;
 
 @Mojo(name = "stop")
 public class Stop extends AbstractMojo {
-
     @Parameter(name = "containerName", property = "containerName", required = true)
     private String containerName;
 
