@@ -21,9 +21,7 @@ public class Stop extends AbstractMojo {
     @Override
     public void execute() {
         getLog().info("Shutting down and removing Moto server mode containers...");
-        DockerClientConfig standard = DefaultDockerClientConfig
-            .createDefaultConfigBuilder()
-            .build();
+        DockerClientConfig standard = DefaultDockerClientConfig.createDefaultConfigBuilder().build();
         DockerHttpClient httpClient = new ApacheDockerHttpClient.Builder()
             .dockerHost(standard.getDockerHost())
             .sslConfig(standard.getSSLConfig())
@@ -32,19 +30,12 @@ public class Stop extends AbstractMojo {
             .responseTimeout(Duration.ofSeconds(45))
             .build();
         DockerClient client = DockerClientImpl.getInstance(standard, httpClient);
-        List<Container> containers = client
-            .listContainersCmd()
-            .withNameFilter(List.of(containerName))
-            .exec();
-        getLog()
-            .info(
-                "Found containers: " + containers.stream().map(Container::getId).toList()
-            );
+        List<Container> containers = client.listContainersCmd().withNameFilter(List.of(containerName)).exec();
+        getLog().info("Found containers: " + containers.stream().map(Container::getId).toList());
         containers.forEach(
             (
                 container -> {
-                    getLog()
-                        .info("Stopping and removing container: " + container.getId());
+                    getLog().info("Stopping and removing container: " + container.getId());
                     client.stopContainerCmd(container.getId()).exec();
                     client.removeContainerCmd(container.getId()).exec();
                 }

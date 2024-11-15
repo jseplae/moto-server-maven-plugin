@@ -35,9 +35,7 @@ public class Start extends AbstractMojo {
     @Override
     public void execute() {
         getLog().info("Launching Moto server Docker container...");
-        DockerClientConfig standard = DefaultDockerClientConfig
-            .createDefaultConfigBuilder()
-            .build();
+        DockerClientConfig standard = DefaultDockerClientConfig.createDefaultConfigBuilder().build();
         DockerHttpClient httpClient = new ApacheDockerHttpClient.Builder()
             .dockerHost(standard.getDockerHost())
             .sslConfig(standard.getSSLConfig())
@@ -65,10 +63,7 @@ public class Start extends AbstractMojo {
             getLog().warn("Found more than one Moto server containers.");
             throw new RuntimeException("More than one Moto server images found");
         } else {
-            getLog()
-                .warn(
-                    "Found an existing Moto server container. Starting it if necessary."
-                );
+            getLog().warn("Found an existing Moto server container. Starting it if necessary.");
             Container existingContainer = existingContainers.getFirst();
             if (STATUS_RUNNING.equals(existingContainer.getState())) {
                 getLog().info("Moto server container already running.");
