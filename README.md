@@ -9,10 +9,11 @@ Uses the official Docker image from https://hub.docker.com/r/motoserver/moto.
 <plugin>
   <groupId>io.github.jseplae</groupId>
     <artifactId>moto-server-maven-plugin</artifactId>
-    <version>0.2.1</version>
+    <version>0.2.3</version>
     <configuration>
       <containerName>moto-server</containerName>
-      <imageTag>5.0.19</imageTag>
+      <imageTag>latest</imageTag>
+      <port>5000</port>
     </configuration>
   <executions>
     <execution>
