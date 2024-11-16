@@ -21,16 +21,18 @@ import org.apache.maven.plugins.annotations.Parameter;
 
 @Mojo(name = "start")
 public class Start extends AbstractMojo {
+    private static final String STATUS_RUNNING = "running";
+
     @Parameter(name = "containerName", property = "containerName", required = true)
     private String containerName;
 
-    @Parameter(name = "imageTag", property = "containerName", defaultValue = "latest")
+    @Parameter(name = "imageTag", property = "imageTag", defaultValue = "latest")
     private String imageTag;
 
-    private DockerClient client;
+    @Parameter(name = "port", property = "port", defaultValue = "5000")
+    private int port;
 
-    private static String RUNNING_MESSAGE = "Moto server is running.";
-    private static String STATUS_RUNNING = "running";
+    private DockerClient client;
 
     @Override
     public void execute() {
@@ -78,18 +80,19 @@ public class Start extends AbstractMojo {
             .pullImageCmd("motoserver/moto")
             .withTag(imageTag)
             .exec(new PullImageResultCallback())
-            .awaitCompletion(30, TimeUnit.SECONDS);
-        ExposedPort exposedPort = ExposedPort.tcp(5000);
+            .awaitCompletion(2, TimeUnit.MINUTES);
+        ExposedPort exposedPort = ExposedPort.tcp(port);
         Ports bindings = new Ports();
-        bindings.bind(exposedPort, Ports.Binding.bindPort(5000));
+        bindings.bind(exposedPort, Ports.Binding.bindPort(port));
         String containerId = client
             .createContainerCmd("motoserver/moto:" + imageTag)
             .withName(name)
             .withHostConfig(new HostConfig().withPortBindings(bindings))
+            .withEnv("MOTO_PORT=" + port)
             .exec()
             .getId();
         getLog().info("Container ID: " + containerId);
         client.startContainerCmd(containerId).exec();
-        getLog().info(RUNNING_MESSAGE);
+        getLog().info("Moto server is running on port " + port);
     }
 }

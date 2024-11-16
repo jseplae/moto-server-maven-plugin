@@ -25,7 +25,7 @@ public class Stop extends AbstractMojo {
         DockerHttpClient httpClient = new ApacheDockerHttpClient.Builder()
             .dockerHost(standard.getDockerHost())
             .sslConfig(standard.getSSLConfig())
-            .maxConnections(100)
+            .maxConnections(20)
             .connectionTimeout(Duration.ofSeconds(30))
             .responseTimeout(Duration.ofSeconds(45))
             .build();
