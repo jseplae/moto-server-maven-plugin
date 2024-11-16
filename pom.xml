@@ -7,7 +7,7 @@
     <groupId>io.github.jseplae</groupId>
     <artifactId>moto-server-maven-plugin</artifactId>
     <name>${project.groupId}:${project.artifactId}</name>
-    <version>0.2.3</version>
+    <version>0.2.4</version>
     <packaging>maven-plugin</packaging>
     <description>A Maven plugin for easy moto server mode.</description>
     <properties>
@@ -126,29 +126,6 @@
                                     </resource>
                                 </resources>
                             </configuration>
-                        </execution>
-                    </executions>
-                </plugin>
-                <plugin>
-                    <groupId>com.jseplae.maven</groupId>
-                    <artifactId>moto-server-maven-plugin</artifactId>
-                    <version>${project.version}</version>
-                    <configuration>
-                        <containerName>moto-server</containerName>
-                        <imageTag>5.0.19</imageTag>
-                    </configuration>
-                    <executions>
-                        <execution>
-                            <id>start</id>
-                            <goals>
-                                <goal>start</goal>
-                            </goals>
-                        </execution>
-                        <execution>
-                            <id>stop</id>
-                            <goals>
-                                <goal>stop</goal>
-                            </goals>
                         </execution>
                     </executions>
                 </plugin>
